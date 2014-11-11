@@ -1,0 +1,22 @@
+---
+# package update and install
+
+- name: apt-get update
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: install basic package
+  apt: name={{ item }} state=latest
+  with_items:
+    - build-essential
+    - git
+    - monit
+    - ntp
+    - ufw
+    - vim
+    - htop
+    - sysstat
+
+- name: install language-pack-ja
+  apt: name=language-pack-ja state=latest
+
+

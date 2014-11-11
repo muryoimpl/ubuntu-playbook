@@ -21,5 +21,6 @@
 
 - name: upload public key
   authorized_key: user=muryoimpl
-                  key="{{ lookup('file', '/home/muryoimpl/.ssh/id_rsa.pub') }}"
+                  key="{{ lookup('file', '/Users/muryoimpl/.ssh/id_rsa.pub') }}"
                   state=present
+                  manage_dir=yes

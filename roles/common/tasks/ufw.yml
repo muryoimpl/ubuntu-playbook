@@ -1,0 +1,15 @@
+---
+# configure ufw
+
+- name: ufw enable
+  ufw: state=enabled policy=deny
+  notify: restart ufw
+
+- name: ufw ssh config
+  ufw: rule=limit port=ssh proto=tcp state=reloaded
+
+- name: ufw detail config
+  ufw: rule=allow port={{item}} proto=tcp state=reloaded
+  with_items:
+    - http
+    - https

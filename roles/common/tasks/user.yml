@@ -1,0 +1,25 @@
+---
+# add user and group
+
+- name: add user group
+  group: name=apps gid=2001 state=present
+
+  # validate the sudoers file before saving
+- name: allow apps group to run sudo without password
+  lineinfile: dest=/etc/sudoers
+              state=present
+              regexp='^\%apps'
+              line='%apps ALL=(ALL) NOPASSWD:ALL'
+              validate='visudo -cf %s'
+
+- name: add user
+  user: name=muryoimpl
+        shell=/bin/bash
+        uid=2001
+        groups=apps
+        append=yes
+
+- name: upload public key
+  authorized_key: user=muryoimpl
+                  key="{{ lookup('file', '/home/muryoimpl/.ssh/id_rsa.pub') }}"
+                  state=present

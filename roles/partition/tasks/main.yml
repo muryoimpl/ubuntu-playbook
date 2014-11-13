@@ -1,0 +1,12 @@
+---
+- name: create swap image
+  command: dd if=/dev/zero of=/swap.img bs=1M count=2024
+
+- name: chmod swap image
+  command: chmod 600 /swap.img
+
+- name: mkswap
+  command: mkswap /swap.img
+
+- name: activate swap
+  command: swapon /swap.img

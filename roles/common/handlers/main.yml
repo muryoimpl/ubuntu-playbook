@@ -1,7 +1,15 @@
 ---
 - name: update timezone
   command: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata
+
 - name: restart ufw
   service: name=ufw state=restarted
+
 - name: restart ntpd
   service: name=ntp state=restarted
+
+- name: reload vagrant
+  sudo: no
+  command: vagrant reload
+  delegate_to: 127.0.0.1
+  tags: vagrant

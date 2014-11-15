@@ -1,0 +1,10 @@
+---
+- name: change ssh port to 22222
+  template: src=sshd_config.j2 dest=/etc/ssh/sshd_config
+  notify:
+    - restart ssh
+  when: remote
+
+- name: allow 22222 port
+  ufw: rule=allow port=22222 proto=tcp state=reloaded
+  when: remote

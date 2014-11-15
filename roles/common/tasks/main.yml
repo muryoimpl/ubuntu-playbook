@@ -6,4 +6,6 @@
 
 - include: user.yml
 
+- include: ssh.yml
+
 - include: ufw.yml

@@ -2,6 +2,8 @@
 - hosts: dbserver
   remote_user: vagrant
   sudo: yes
+  vars:
+    remote: false
   roles:
     - {role: common}
-    - {role: partition, tags: ['vagrant']}
+    - {role: partition}

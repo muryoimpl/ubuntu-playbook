@@ -1,0 +1,7 @@
+---
+- name: install redis server
+  apt: name=redis-server state=latest
+  notify: restart redis-server
+
+- name: allow redis-server port(6379)
+  ufw: rule=allow port=22222 proto=tcp state=reloaded

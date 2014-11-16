@@ -15,3 +15,7 @@
   command: swapon /swap.img
   notify: reload vagrant
   when: ansible_swaptotal_mb < 1
+
+- name: register fstab
+  mount: name=swap src=/swap.img fstype=swap opts=defaults passno=0 dump=0 state=present
+  when: ansible_swaptotal_mb < 1

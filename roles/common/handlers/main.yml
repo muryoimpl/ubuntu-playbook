@@ -11,9 +11,3 @@
 - name: restart ssh
   service: name=ssh state=restarted
   when: remote
-
-- name: reload vagrant
-  sudo: no
-  command: vagrant reload
-  delegate_to: 127.0.0.1
-  when: not remote

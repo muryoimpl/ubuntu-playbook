@@ -10,3 +10,9 @@
     - {role: partition}
     - {role: redis}
     - {role: mariadb}
+  post_tasks:
+    - name: reload vagrant
+      sudo: no
+      command: vagrant reload
+      delegate_to: 127.0.0.1
+      when: not remote

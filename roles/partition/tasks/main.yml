@@ -13,7 +13,6 @@
 
 - name: activate swap
   command: swapon /swap.img
-  notify: reload vagrant
   when: ansible_swaptotal_mb < 1
 
 - name: register fstab

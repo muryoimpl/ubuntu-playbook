@@ -4,7 +4,9 @@
   sudo: yes
   vars:
     remote: false
+    mariadb_root_password: 'password'
   roles:
     - {role: common}
     - {role: partition}
     - {role: redis}
+    - {role: mariadb}

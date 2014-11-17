@@ -1,0 +1,3 @@
+---
+- name: ufw
+  ufw: rule=allow port=3306 proto=tcp state=reloaded

@@ -1,4 +1,6 @@
 ---
+# equivalent to "mysql_secure_installation"
+
 - name: install mariadb-server
   apt: name={{ item }} state=latest
   with_items:

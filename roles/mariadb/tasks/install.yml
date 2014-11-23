@@ -22,6 +22,10 @@
 - name: delete anonymous user for localhost
   mysql_user: user='' state=absent
 
+- name: remove bind-address
+  copy: src=mariadb_local.cnf.j2 dest=/etc/mysql/my.cnf mode=644
+  when: not remote
+
 - name: secure the root user
   mysql_user: user=root password={{ mariadb_root_password }} host={{ item }}
   with_items:
@@ -29,6 +33,12 @@
     - 127.0.0.1
     - localhost
     - "{{ ansible_hostname }}"
+
+- name: grant all privilege to root with grant option
+  mysql_user: user=root password={{ mariadb_root_password }} host=% priv={{ item }} append_privs=yes state=present
+  with_items:
+    - "*.*:ALL,GRANT"
+  notify: restart mariadb-server
 
 - name: remove the MySQL test database
   mysql_db: db=test state=absent

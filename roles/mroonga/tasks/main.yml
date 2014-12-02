@@ -1,0 +1,26 @@
+---
+
+- name: install software-properies-common and lsb-release
+  apt: name={{ item }} state=latest
+  with_items:
+    - software-properties-common
+    - lsb-release
+
+- name: get result of $(lsb_release --short --codename)
+  shell: echo $(lsb_release --short --codename)
+  register: result
+
+- name: add security repositories
+  apt_repository: repo="deb http://security.ubuntu.com/ubuntu {{ result.stdout }}-security main restricted" state=present
+
+- name: add groonga repositories
+  apt_repository: repo=ppa:groonga/ppa state=present
+
+- name: apt-get update
+  apt: update_cache=yes
+
+- name: apt-get install mysql-server-mroonga and groonga-tokenizer-mecab
+  apt: name={{ item }} state=latest
+  with_items:
+    - mysql-server-mroonga
+    - groonga-tokenizer-mecab

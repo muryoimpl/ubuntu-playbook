@@ -10,6 +10,7 @@
     - {role: partition}
     - {role: redis}
     - {role: mariadb}
+    - {role: mroonga}
   post_tasks:
     - name: reload vagrant
       sudo: no

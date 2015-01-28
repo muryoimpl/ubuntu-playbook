@@ -125,5 +125,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.playbook       = 'site.yml'
     ansible.inventory_path = 'hosts'
     ansible.limit          = :all
+    ansible.skip_tags      = ['mariadb']
   end
 end

@@ -1,11 +1,23 @@
 ---
 # equivalent to "mysql_secure_installation"
 
-- name: install mariadb-server
+- name: mariadb | install mariadb-server
   apt: name={{ item }} state=latest
   with_items:
-    - mariadb-server
+    - mariadb-client-5.5
+    - mariadb-server-5.5
     - python-mysqldb
+  tags: # for skip
+    - mariadb
+
+- name: mysql | install mysql-server-5.5
+  apt: name={{ item }} state=latest
+  with_items:
+    - mysql-client-5.5
+    - mysql-server-5.5
+    - python-mysqldb
+  tags: # for skip
+    - mysql
 
 - name: start service
   service: name=mysql
